@@ -25,25 +25,44 @@ class NYColor {
     }
 
     static newRandomColor(_mainHue) {
-        let h = processHue(_mainHue + random(-80, 80));
-        let s = random(40, 100);
+        let h = processHue(_mainHue + random(-60, 60));
+        let s = random(40, 80);
         let b = random(60, 100);
 
         return new NYColor(h, s, b);
     }
 }
 
+class TreeNode {
+    constructor(_fromPoints, _toPoints, _branchLevel)
+    {
+        this.fromPoints = _fromPoints;
+        this.toPoints = _toPoints;
+        this.branchLevel = _branchLevel;
+    }
+}
+
+class LeafNode {
+    constructor(_x, _y, _width, _height) {
+        this.x = _x;
+        this.y = _y;
+        this.width = _width;
+        this.height = _height;
+        this.leafZSeed = random(-10000000, 10000000);
+    }
+}
+
 class NoiseSet {
-    constructor(_xScale = 0.01, _yScale = 0.01, _zScale = 0.0) {
+    constructor(_xScale = 0.01, _yScale = 0.01, _zScale = 0.01) {
         this.noiseXStart = random(-1000000, 1000000);
         this.noiseYStart = random(-1000000, 1000000);
         this.noiseZStart = random(-10000, 10000);
-        this.noiseXScale = 0.01;
-        this.noiseYScale = 0.01;
-        this.noiseZScale = 0.01;
+        this.noiseXScale = _xScale;
+        this.noiseYScale = _yScale;
+        this.noiseZScale = _zScale;
     }
 
-    noiseValue(_x, _y, _z = 1.0) {
+    noiseValue(_x, _y = 1.0, _z = 1.0) {
         let noiseX = this.noiseXStart + _x * this.noiseXScale;
         let noiseY = this.noiseYStart + _y * this.noiseYScale;
         let noiseZ = this.noiseZStart + _z * this.noiseZScale;
