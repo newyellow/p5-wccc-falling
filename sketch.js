@@ -23,13 +23,18 @@ let landCurveNoise;
 let landLineSizeNoise;
 let landLineOffsetNoise;
 
-let mainHue = 0;
+let currentColorSet;
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
   background(220);
 
   colorMode(HSB);
+
+  // setup color sets
+  setupColorSets();
+  currentColorSet = colorSets[int(random(0, colorSets.length))];
+  
 
   // noise sets
   layerNoise = new NoiseSet(0.01, 0.01, 0.01);
@@ -43,14 +48,20 @@ async function setup() {
 
   // some settings
   let treeBaseWidth = random(30, 60);
-  mainHue = processHue(random(300, 400));
+  let treeCountRange = [1, 3];
+  if(random() < 0.5)
+    treeCountRange = [0, 2];
+
+  let treeHeightRange = [0.6, 1.2];
+  if(random() < 0.5)
+    treeHeightRange = [0.3, 0.8];
 
 
   // background
-  let backgroundColorLU = NYColor.newRandomColor(0);
-  let backgroundColorRU = NYColor.newRandomColor(300);
-  let backgroundColorLD = NYColor.newRandomColor(60);
-  let backgroundColorRD = NYColor.newRandomColor(240);
+  let backgroundColorLU = currentColorSet.getSkyColor(0);
+  let backgroundColorRU = currentColorSet.getSkyColor(1);
+  let backgroundColorLD = currentColorSet.getSkyColor(2);
+  let backgroundColorRD = currentColorSet.getSkyColor(3);
 
   let xCount = int(width / random(1, 3));
   let yCount = int(height / random(2, 6));
@@ -104,13 +115,13 @@ async function setup() {
     let landZ = landZStart + landZAdd * i;
 
     // draw trees
-    let treeCount = int(random(1, 3));
+    let treeCount = int(random(treeCountRange[0], treeCountRange[1]));
 
     for (let i = 0; i < treeCount; i++) {
       let treeX = random(0.1, 0.9) * width;
       let treeY = getLandY(landY, landCurveRange, landZ, treeX) + 40;
       let treeWidth = random(0.6, 1.4) * treeBaseWidth;
-      let treeHeight = random(0.6, 1.2) * height;
+      let treeHeight = random(treeHeightRange[0], treeHeightRange[1]) * height;
 
       await drawTree(treeX, treeY, treeWidth, treeHeight);
       await sleep(1);
@@ -127,6 +138,7 @@ async function setup() {
     await sleep(1);
   }
 
+  drawFrame();
 }
 
 

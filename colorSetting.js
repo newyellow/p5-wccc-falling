@@ -1,84 +1,133 @@
-function getRandomColorSet() {
-    let sets = [];
+let colorSets = [];
 
-    sets.push({
-        waterColor: new NYColor(220, 40, 10),
-        waterFlowColor: new NYColor(192, 86, 90),
-        plantColorA: new NYColor(120, 60, 60),
-        plantColorB: new NYColor(80, 60, 60),
-        plantContrastColor: new NYColor(40, 70, 80),
-        plantHighlightColor: new NYColor(0, 0, 100),
-        flowerInsideColor: new NYColor(300, 20, 100, 0.8),
-        flowerOutsideColor: new NYColor(0, 0, 100, 0.8),
-        pistilColorA: new NYColor(52, 90, 95, 0.6),
-        pistilColorB: new NYColor(326, 30, 90, 0.6)
-    });
+function setupColorSets () {
+    let fallRedSet = new ColorSet();
+    fallRedSet.treeHueA = [300, 400];
+    fallRedSet.treeSatA = [40, 80];
+    fallRedSet.treeBriA = [60, 100];
 
-    sets.push({
-        waterColor: new NYColor(0, 0, 100),
-        waterFlowColor: new NYColor(60, 48, 90),
-        plantColorA: new NYColor(294, 50, 100),
-        plantColorB: new NYColor(334, 50, 100),
-        plantContrastColor: new NYColor(60, 100, 100),
-        plantHighlightColor: new NYColor(0, 0, 100),
-        flowerInsideColor: new NYColor(244, 90, 40, 0.8),
-        flowerOutsideColor: new NYColor(270, 20, 20, 0.8),
-        pistilColorA: new NYColor(20, 0, 100, 0.6),
-        pistilColorB: new NYColor(64, 87, 100, 0.6)
-    });
+    fallRedSet.treeHueB = [300, 400];
+    fallRedSet.treeSatB = [40, 80];
+    fallRedSet.treeBriB = [30, 60];
 
-    sets.push({
-        waterColor: new NYColor(156, 10, 100),
-        waterFlowColor: new NYColor(156, 100, 60),
-        plantColorA: new NYColor(197, 66, 90),
-        plantColorB: new NYColor(161, 66, 90),
-        plantContrastColor: new NYColor(262, 85, 93),
-        plantHighlightColor: new NYColor(0, 0, 100),
-        flowerInsideColor: new NYColor(310, 94, 26, 0.8),
-        flowerOutsideColor: new NYColor(229, 80, 80, 0.8),
-        pistilColorA: new NYColor(120, 0, 100, 0.6),
-        pistilColorB: new NYColor(146, 0, 100, 0.6)
-    });
+    fallRedSet.landHueUp = [-60, 60];
+    fallRedSet.landSatUp = [40, 60];
+    fallRedSet.landBriUp = [60, 100];
 
-    sets.push({
-        waterColor: new NYColor(297, 60, 20),
-        waterFlowColor: new NYColor(340, 100, 100),
-        plantColorA: new NYColor(330, 90, 90),
-        plantColorB: new NYColor(300, 90, 90),
-        plantContrastColor: new NYColor(220, 100, 100),
-        plantHighlightColor: new NYColor(0, 0, 100),
-        flowerInsideColor: new NYColor(24, 98, 100, 0.8),
-        flowerOutsideColor: new NYColor(59, 62, 100, 0.8),
-        pistilColorA: new NYColor(120, 0, 100, 0.6),
-        pistilColorB: new NYColor(190, 100, 100, 0.6)
-    });
+    fallRedSet.landHueBot = [0, 120];
+    fallRedSet.landSatBot = [40, 60];
+    fallRedSet.landBriBot = [30, 100];
 
-    sets.push({
-        waterColor: new NYColor(0, 100, 60),
-        waterFlowColor: new NYColor(300, 60, 100),
-        plantColorA: new NYColor(260, 30, 12),
-        plantColorB: new NYColor(230, 30, 10),
-        plantContrastColor: new NYColor(60, 100, 100),
-        plantHighlightColor: new NYColor(0, 0, 0),
-        flowerInsideColor: new NYColor(24, 98, 100, 0.8),
-        flowerOutsideColor: new NYColor(0, 0, 100, 0.8),
-        pistilColorA: new NYColor(180, 99, 100, 0.6),
-        pistilColorB: new NYColor(220, 100, 100, 0.6)
-    });
+    fallRedSet.skyHueA = [-60, 60];
+    fallRedSet.skyHueB = [240, 360];
+    fallRedSet.skyHueC = [0, 120];
+    fallRedSet.skyHueD = [180, 300];
+    fallRedSet.skySat = [40, 80];
+    fallRedSet.skyBri = [60, 100];
+    colorSets.push(fallRedSet);
 
-    sets.push({
-        waterColor: new NYColor(0, 0, 3),
-        waterFlowColor: new NYColor(0, 0, 10),
-        plantColorA: new NYColor(0, 0, 20),
-        plantColorB: new NYColor(0, 0, 20),
-        plantContrastColor: new NYColor(60, 100, 100),
-        plantHighlightColor: new NYColor(0, 0, 0),
-        flowerInsideColor: new NYColor(0, 0, 30, 0.8),
-        flowerOutsideColor: new NYColor(0, 0, 100, 0.8),
-        pistilColorA: new NYColor(180, 99, 100, 0.6),
-        pistilColorB: new NYColor(20, 100, 100, 0.6)
-    });
 
-    // return random(sets);
-    return sets[5];
+    let blackWhiteSet = new ColorSet();
+    blackWhiteSet.treeHueA = [300, 400];
+    blackWhiteSet.treeSatA = [0, 0];
+    blackWhiteSet.treeBriA = [6, 12];
+
+    blackWhiteSet.treeHueB = [300, 400];
+    blackWhiteSet.treeSatB = [0, 0];
+    blackWhiteSet.treeBriB = [6, 12];
+
+    blackWhiteSet.landHueUp = [-60, 60];
+    blackWhiteSet.landSatUp = [0, 0];
+    blackWhiteSet.landBriUp = [40, 80];
+
+    blackWhiteSet.landHueBot = [0, 120];
+    blackWhiteSet.landSatBot = [0, 0];
+    blackWhiteSet.landBriBot = [10, 60];
+
+    blackWhiteSet.skyHueA = [0, 0];
+    blackWhiteSet.skyHueB = [0, 0];
+    blackWhiteSet.skyHueC = [0, 0];
+    blackWhiteSet.skyHueD = [0, 0];
+    blackWhiteSet.skySat = [0, 0];
+    blackWhiteSet.skyBri = [0, 60];
+    colorSets.push(blackWhiteSet);
+
+
+    let blueAndGreen = new ColorSet();
+    blueAndGreen.treeHueA = [160, 200];
+    blueAndGreen.treeSatA = [60, 80];
+    blueAndGreen.treeBriA = [40, 100];
+
+    blueAndGreen.treeHueB = [200, 260];
+    blueAndGreen.treeSatB = [60, 80];
+    blueAndGreen.treeBriB = [20, 80];
+
+    blueAndGreen.landHueUp = [50, 170];
+    blueAndGreen.landSatUp = [40, 60];
+    blueAndGreen.landBriUp = [60, 100];
+
+    blueAndGreen.landHueBot = [50, 170];
+    blueAndGreen.landSatBot = [40, 60];
+    blueAndGreen.landBriBot = [60, 100];
+
+    blueAndGreen.skyHueA = [159, 210];
+    blueAndGreen.skyHueB = [250, 315];
+    blueAndGreen.skyHueC = [70, 173];
+    blueAndGreen.skyHueD = [120, 180];
+    blueAndGreen.skySat = [40, 60];
+    blueAndGreen.skyBri = [30, 80];
+    colorSets.push(blueAndGreen);
+
+
+    let golden = new ColorSet();
+    golden.treeHueA = [30, 50];
+    golden.treeSatA = [80, 100];
+    golden.treeBriA = [80, 100];
+
+    golden.treeHueB = [-60, 60];
+    golden.treeSatB = [80, 100];
+    golden.treeBriB = [80, 100];
+
+    golden.landHueUp = [-40, 20];
+    golden.landSatUp = [80, 100];
+    golden.landBriUp = [60, 100];
+
+    golden.landHueBot = [-120, 0];
+    golden.landSatBot = [80, 100];
+    golden.landBriBot = [20, 60];
+
+    golden.skyHueA = [300, 360];
+    golden.skyHueB = [240, 320];
+    golden.skyHueC = [-60, 60];
+    golden.skyHueD = [300, 360];
+    golden.skySat = [60, 80];
+    golden.skyBri = [30, 80];
+    colorSets.push(golden);
+
+
+    let lakeGreen = new ColorSet();
+    lakeGreen.treeHueA = [160, 180];
+    lakeGreen.treeSatA = [80, 100];
+    lakeGreen.treeBriA = [80, 100];
+
+    lakeGreen.treeHueB = [180, 220];
+    lakeGreen.treeSatB = [80, 100];
+    lakeGreen.treeBriB = [60, 80];
+
+    lakeGreen.landHueUp = [160, 190];
+    lakeGreen.landSatUp = [30, 60];
+    lakeGreen.landBriUp = [60, 100];
+
+    lakeGreen.landHueBot = [180, 220];
+    lakeGreen.landSatBot = [60, 80];
+    lakeGreen.landBriBot = [40, 80];
+
+    lakeGreen.skyHueA = [160, 180];
+    lakeGreen.skyHueB = [200, 240];
+    lakeGreen.skyHueC = [200, 240];
+    lakeGreen.skyHueD = [160, 180];
+    lakeGreen.skySat = [10, 40];
+    lakeGreen.skyBri = [80, 100];
+    colorSets.push(lakeGreen);
+
 }

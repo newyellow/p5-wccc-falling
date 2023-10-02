@@ -34,8 +34,7 @@ class NYColor {
 }
 
 class TreeNode {
-    constructor(_fromPoints, _toPoints, _branchLevel)
-    {
+    constructor(_fromPoints, _toPoints, _branchLevel) {
         this.fromPoints = _fromPoints;
         this.toPoints = _toPoints;
         this.branchLevel = _branchLevel;
@@ -68,5 +67,82 @@ class NoiseSet {
         let noiseZ = this.noiseZStart + _z * this.noiseZScale;
 
         return noise(noiseX, noiseY, noiseZ);
+    }
+}
+
+class ColorSet {
+    constructor() {
+        this.treeHueA = [0, 60];
+        this.treeSatA = [40, 60];
+        this.treeBriA = [60, 100];
+
+        this.treeHueB = [0, 60];
+        this.treeSatB = [40, 60];
+        this.treeBriB = [60, 100];
+
+        this.landHueUp = [0, 60];
+        this.landSatUp = [40, 60];
+        this.landBriUp = [60, 100];
+
+        this.landHueBot = [0, 60];
+        this.landSatBot = [40, 60];
+        this.landBriBot = [60, 100];
+
+        this.skyHueA = [0, 60];
+        this.skyHueB = [0, 60];
+        this.skyHueC = [0, 60];
+        this.skyHueC = [0, 60];
+        this.skySat = [40, 60];
+        this.skyBri = [60, 100];
+    }
+
+    getRandomTreeColor(_index = 0) {
+
+        if (_index == 0) {
+            let h = processHue(random(this.treeHueA[0], this.treeHueA[1]));
+            let s = random(this.treeSatA[0], this.treeSatA[1]);
+            let b = random(this.treeBriA[0], this.treeBriA[1]);
+
+            return new NYColor(h, s, b);
+        }
+        else {
+            let h = processHue(random(this.treeHueB[0], this.treeHueB[1]));
+            let s = random(this.treeSatB[0], this.treeSatB[1]);
+            let b = random(this.treeBriB[0], this.treeBriB[1]);
+
+            return new NYColor(h, s, b);
+        }
+    }
+
+    getRandomLandColor(_index) {
+        if (_index == 0) {
+            let h = processHue(random(this.landHueUp[0], this.landHueUp[1]));
+            let s = random(this.landSatUp[0], this.landSatUp[1]);
+            let b = random(this.landBriUp[0], this.landBriUp[1]);
+            return new NYColor(h, s, b);
+        }
+        else {
+            let h = processHue(random(this.landHueBot[0], this.landHueBot[1]));
+            let s = random(this.landSatBot[0], this.landSatBot[1]);
+            let b = random(this.landBriBot[0], this.landBriBot[1]);
+            return new NYColor(h, s, b);
+        }
+    }
+
+    getSkyColor(_skyIndex = 0) {
+
+        let h = processHue(random(this.skyHueA[0], this.skyHueA[1]));
+
+        if (_skyIndex == 1)
+            h = processHue(random(this.skyHueB[0], this.skyHueB[1]));
+        else if (_skyIndex == 2)
+            h = processHue(random(this.skyHueC[0], this.skyHueC[1]));
+        else if (_skyIndex == 3)
+            h = processHue(random(this.skyHueD[0], this.skyHueD[1]));
+
+        let s = random(this.skySat[0], this.skySat[1]);
+        let b = random(this.skyBri[0], this.skyBri[1]);
+
+        return new NYColor(h, s, b);
     }
 }

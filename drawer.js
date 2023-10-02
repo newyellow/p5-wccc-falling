@@ -20,12 +20,8 @@ async function drawTree(_x, _y, _startWidth, _tall) {
     let backLeaves = data.backLeaves;
     let frontLeaves = data.frontLeaves;
 
-    leafLineUpColor = NYColor.newRandomColor(mainHue);
-    leafLineUpColor.s = random(40, 100);
-    leafLineUpColor.b = random(60, 100);
-    
-    leafLineBotColor = NYColor.newRandomColor(mainHue);
-    leafLineBotColor.b = random(20, 60);
+    leafLineUpColor = currentColorSet.getRandomTreeColor(0);
+    leafLineBotColor = currentColorSet.getRandomTreeColor(1);
 
     // back leave layer
     stroke('white');
@@ -80,13 +76,8 @@ async function drawLandLine(_startY, _yDiff, _noiseZValue, _isOutline = false) {
     let xEnd = width + 200;
     let lineCount = (xEnd - xStart) * landStrokeDensity;
 
-    landLineUpColor = NYColor.newRandomColor(0);
-    landLineUpColor.s = random(40, 60);
-    landLineUpColor.b = random(60, 100);
-
-    landLineBotColor = NYColor.newRandomColor(60);
-    landLineBotColor.s = random(40, 60);
-    landLineBotColor.b = random(30, 100);
+    landLineUpColor = currentColorSet.getRandomLandColor(0);
+    landLineBotColor = currentColorSet.getRandomLandColor(1);
 
     for (let i = 0; i < lineCount; i++) {
         let t = i / (lineCount - 1);
@@ -241,5 +232,47 @@ function drawBGLine(_x1, _y1, _x2, _y2) {
         stroke('white');
         strokeWeight(dotSize);
         point(dotX, dotY);
+    }
+}
+
+function drawFrame ()
+{
+    let randomZSeed = random(-1000000, 1000000);
+    let frameThickness = min(width, height) * 0.02;
+
+    // top
+    for(let x=0; x< width; x++)
+    {
+        let y = frameThickness + noise(x * 0.012, 0.0, randomZSeed) * frameThickness * 0.6;
+        stroke(0, 0, 100, 1);
+        strokeWeight(2);
+        line(x, 0, x, y);
+    }
+
+    // bot
+    for(let x=0; x< width; x++)
+    {
+        let y = height - frameThickness - noise(x * 0.012, height, randomZSeed) * frameThickness * 0.6;
+        stroke(0, 0, 100, 1);
+        strokeWeight(2);
+        line(x, height, x, y);
+    }
+
+    // left
+    for(let y=0; y< height; y++)
+    {
+        let x = frameThickness + noise(0.0, y * 0.012, randomZSeed) * frameThickness * 0.6;
+        stroke(0, 0, 100, 1);
+        strokeWeight(2);
+        line(0, y, x, y);
+    }
+
+    // right
+    for(let y=0; y< height; y++)
+    {
+        let x = width - frameThickness - noise(width, y * 0.012, randomZSeed) * frameThickness * 0.6;
+        stroke(0, 0, 100, 1);
+        strokeWeight(2);
+        line(width, y, x, y);
     }
 }
